@@ -1,6 +1,6 @@
 # Spotify Top Artist Songs
 
-![image](https://github.com/arps18/Spotify/assets/47818179/f67415c9-34e0-4075-ac34-2ffb0c223bd2)
+![image](https://github.com/arps18/Spotify/assets/47818179/f1fdd2b5-662c-4906-91ee-1c789033343b)
 
 # Spotify Artist Search
 
