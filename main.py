@@ -3,12 +3,20 @@ import os
 import base64
 from requests import post,get
 import json
+from pyfiglet import Figlet
+from termcolor import colored
+from colored import fg, bg, attr
+
+
+f = Figlet(font='slant')
+print(f.renderText('Spotify Artist'))
 
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-user_input = input("Please enter an Artist name: ")
+user_input = input(f"{fg(148)}Enter Username: ")
+
 
 def get_token():
     auth_string = client_id + ":" + client_secret
@@ -39,7 +47,9 @@ def search_for_artist(token, artist_name):
     result = get(query_url, headers=headers)
     json_result = json.loads(result.content)["artists"]["items"]
     if len(json_result) == 0:
-        print ("No artst with this name exists.... :( ")
+        print(f"{fg(1)}No artist with this name exists :(")
+        print("------------------------")
+        print("")
         return None
     return json_result[0]
 
@@ -56,4 +66,4 @@ artist_id = result["id"]
 songs = get_songs_by_artist(token,artist_id)
 
 for idx,song in enumerate(songs):
-    print(f"{idx + 1}. {song['name']}")
+    print(f"{fg(14)}{idx + 1}. {song['name']}")
