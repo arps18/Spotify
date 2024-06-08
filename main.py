@@ -16,7 +16,6 @@ load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-user_input = input(f"{fg(148)}Enter Username: ")
 
 # Function to get Spotify API token
 def get_token():
@@ -64,11 +63,37 @@ def get_songs_by_artist(token, artist_id):
     json_result = json.loads(result.content)["tracks"]
     return json_result
 
-# Main execution
-token = get_token()
-result = search_for_artist(token, user_input)
-if result:
-    artist_id = result["id"]
-    songs = get_songs_by_artist(token, artist_id)
-    for idx, song in enumerate(songs):
-        print(f"{fg(14)}{idx + 1}. {song['name']}")
+# Main execution loop
+def main():
+    token = get_token()
+    while True:
+        print(f"{fg(148)}Options:")
+        print(f"1. Enter Artist Name")
+        print(f"2. Exit")
+        choice = input(f"Enter your choice (1 or 2): ")
+        print("")
+
+        if choice == '1':
+            artist_name = input(f"{fg(148)}Enter Artist Name: ")
+            print("")
+            result = search_for_artist(token, artist_name)
+            if result:
+                artist_id = result["id"]
+                songs = get_songs_by_artist(token, artist_id)
+                for idx, song in enumerate(songs):
+                    print(f"{fg(14)}{idx + 1}. {song['name']}")
+                    print("")
+            else:
+                print(f"{fg(1)}No artist found. Please try again.")
+                print("")
+        elif choice == '2':
+            print(f"{fg(2)}Exiting the program. Goodbye!")
+            print("")
+            break
+        else:
+            print(f"{fg(130)}Invalid choice. Please enter 1 or 2.")
+            print("")
+
+
+if __name__ == "__main__":
+    main()
